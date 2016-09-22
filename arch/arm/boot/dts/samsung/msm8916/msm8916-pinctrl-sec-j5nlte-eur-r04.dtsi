@@ -227,7 +227,7 @@
                         label = "spi0-cs0-active";
                         spi0_cs0_active: cs0_active {
                                 drive-strength = <2>;
-                                bias-disable = <0>;
+                                bias-pull-down; /* pull down */
                         };
                 };
 
@@ -239,7 +239,7 @@
                         label = "spi0-cs0-suspend";
                         spi0_cs0_sleep: cs0_sleep {
                                 drive-strength = <2>;
-                                bias-disable = <0>;
+                                bias-pull-down; /* pull down */
                         };
                 };
 
@@ -289,12 +289,12 @@
 
 			i2c_1_active: i2c_1_active {
 				drive-strength = <2>; /* 2 MA */
-				bias-disable;         /* PULL NONE */
+				bias-pull-down;         /* PULL DOWN */
 			};
 
 			i2c_1_sleep: i2c_1_sleep {
 				drive-strength = <2>; /* 2 MA */
-				bias-disable;	      /* PULL NONE */
+				bias-pull-down;	      /* PULL DOWN */
 			};
 		};
 
@@ -1487,8 +1487,8 @@
 		};
 
 		front_cam_flash {
-			qcom,pins =  <&gp 50>;
-			qcom,num-grp-pins = <1>;
+			qcom,pins =  <&gp 50>, <&gp 60>;
+			qcom,num-grp-pins = <2>;
 			qcom,pin-func = <0>;
 			label = "front_cam_flash";
 

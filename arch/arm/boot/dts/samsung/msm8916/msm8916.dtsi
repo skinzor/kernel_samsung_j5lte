@@ -24,7 +24,7 @@
 	interrupt-parent = <&intc>;
 
 	chosen {
-		bootargs = "sched_enable_hmp=1";
+		bootargs = "boot_cpus=0,1,2,3 sched_enable_hmp=1";
 	};
 
 	aliases {
@@ -370,7 +370,17 @@
 			<  800000000 4>,
 			<  998400000 5>,
 			< 1094400000 6>,
-			< 1190400000 7>;
+			< 1152000000 7>,
+			< 1190400000 8>,
+			< 1209600000 9>,
+			< 1248000000 10>,
+			< 1363200000 11>,
+			< 1401600000 12>,
+			< 1497600000 13>,
+			< 1593600000 14>,
+			< 1689600000 15>,
+			< 1785600000 16>,
+			< 1881600000 17>;
 	};
 
 	cpubw: qcom,cpubw@0 {
@@ -415,7 +425,17 @@
 			 <  800000 >,
 			 <  998400 >,
 			 < 1094400 >,
-			 < 1190400 >;
+			 < 1152000 >,
+			 < 1190400 >,
+			 < 1209600 >,
+			 < 1248000 >,
+			 < 1363200 >,
+			 < 1401600 >,
+			 < 1497600 >,
+			 < 1593600 >,
+			 < 1689600 >,
+			 < 1785600 >,
+			 < 1881600 >;
 	};
 
 	qcom,sps {
@@ -1390,10 +1410,8 @@
 		clocks = <&clock_rpm clk_xo_wlan_clk>,
 			 <&clock_rpm clk_rf_clk2>,
 			 <&clock_debug clk_gcc_debug_mux>,
-			 <&clock_gcc clk_wcnss_m_clk>,
-			 <&clock_gcc clk_gcc_snoc_qosgen_clk>;
-		clock-names = "xo", "rf_clk", "measure", "wcnss_debug",
-				"snoc_qosgen";
+			 <&clock_gcc clk_wcnss_m_clk>;
+		clock-names = "xo", "rf_clk", "measure", "wcnss_debug";
 
 		qcom,has-autodetect-xo;
 		qcom,wlan-rx-buff-count = <512>;
