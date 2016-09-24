@@ -16,7 +16,6 @@
 #include "msm8916-camera.dtsi"
 #include "msm8916-camera-sensor-cdp-j5-r00.dtsi"
 #include "msm8916-sec-j5-battery-r00.dtsi"
-#include "msm8916-sec-j5lte-ltn-dtvdev-r00.dtsi"
 #include "../../../../../../drivers/video/msm/mdss/samsung/S6D7AA0X62_BV050HDM/dsi_panel_S6D7AA0X62_BV050HDM_hd_5_0_video.dtsi"
 #include "../../../../../../drivers/video/msm/mdss/samsung/ILI6236S_CPT50/dsi_panel_ILI6236S_CPT50_hd_video.dtsi"
 / {
@@ -359,7 +358,7 @@
 			pn547,vio-gpio = <&msm_gpio 90 0x01>;
 			nfc_ldo-supply = <&pm8916_l14>;
 			qcom,clk-src = "BBCLK2";
-			clocks = <&clock_rpm clk_bb_clk2_pin>;
+			clocks = <&clock_rpm clk_bb_clk2>;
 			clock-names = "nfc_clock";
 		};
 	};
