@@ -70,7 +70,6 @@
 			imagis,ic-version = "ist3038c";
 			imagis,project-name = "j5_octa";
 			imagis,tkey = <1>;
-			imagis,octa-hw = <1>;
 		};
 	};
 
@@ -97,7 +96,6 @@
                         coreriver,irq-gpio = <&msm_gpio  98 0x00>;
                         coreriver,tkey-keycodes = <254 158>;
                         coreriver,i2c-pull-up = <1>;
-			coreriver,fw-name = "tc360_j5";
                         coreriver,gpio_seperated = <1>;
                         coreriver,firm-up;
                 };
@@ -390,7 +388,7 @@
 			pn547,vio-gpio = <&msm_gpio 90 0x01>;
 			nfc_ldo-supply = <&pm8916_l14>;
 			qcom,clk-src = "BBCLK2";
-			clocks = <&clock_rpm clk_bb_clk2_pin>;
+			clocks = <&clock_rpm clk_bb_clk2>;
 			clock-names = "nfc_clock";
 		};
 	};
