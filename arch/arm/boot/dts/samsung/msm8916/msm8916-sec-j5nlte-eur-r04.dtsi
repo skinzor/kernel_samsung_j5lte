@@ -359,7 +359,7 @@
 			pn547,vio-gpio = <&msm_gpio 90 0x01>;
 			nfc_ldo-supply = <&pm8916_l14>;
 			qcom,clk-src = "BBCLK2";
-			clocks = <&clock_rpm clk_bb_clk2>;
+			clocks = <&clock_rpm clk_bb_clk2_pin>;
 			clock-names = "nfc_clock";
 		};
 	};
@@ -419,7 +419,7 @@
 
 &usb_otg {
 	qcom,hsusb-otg-phy-init-seq =
-					<0x44 0x80 0x3B 0x81 0x24 0x82 0x13 0x83 0xffffffff>;
+					<0x19 0x81 0x0b 0x82 0xffffffff>;
 };
 
 &sdhc_1 {
