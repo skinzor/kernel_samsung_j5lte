@@ -16,6 +16,7 @@
 #include "msm8916-camera.dtsi"
 #include "msm8916-camera-sensor-cdp-j5-r00.dtsi"
 #include "msm8916-sec-j5-battery-r00.dtsi"
+#include "msm8916-sec-j5lte-ltn-dtvdev-r00.dtsi"
 #include "../../../../../../drivers/video/msm/mdss/samsung/S6D7AA0X62_BV050HDM/dsi_panel_S6D7AA0X62_BV050HDM_hd_5_0_video.dtsi"
 #include "../../../../../../drivers/video/msm/mdss/samsung/S6E8AA5X01_AMS497HY01/dsi_panel_S6E8AA5X01_AMS497HY01_hd_octa_video.dtsi"
 / {
@@ -454,7 +455,7 @@
 
 &usb_otg {
 	qcom,hsusb-otg-phy-init-seq =
-					<0x19 0x81 0x0b 0x82 0xffffffff>;
+					<0x44 0x80 0x3B 0x81 0x24 0x82 0x13 0x83 0xffffffff>;
 };
 
 &rpm_bus {
