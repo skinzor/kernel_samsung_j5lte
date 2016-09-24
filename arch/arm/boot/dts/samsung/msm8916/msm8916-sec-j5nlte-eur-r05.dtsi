@@ -24,7 +24,7 @@
 		serial0 = &blsp1_uart2;
 
 		/*i2c-gpio bus_id*/
-		i2c7 = &i2c_7;
+		//i2c7 = &i2c_7;
 		i2c9 = &i2c_9;
 		i2c10 = &i2c_10;
 		i2c11 = &i2c_11;
@@ -68,38 +68,9 @@
 			imagis,i2c-pull-up = <1>;
 			imagis,fw-bin = <1>;
 			imagis,ic-version = "ist3038c";
-			imagis,project-name = "j5_octa";
-			imagis,tkey = <1>;
+			imagis,project-name = "j5";
 		};
 	};
-
-	i2c_7:i2c@7 {
-                cell-index = <7>;
-                compatible = "i2c-gpio";
-                i2c-gpio-scl = <&msm_gpio 102  0x00>;
-                i2c-gpio-sda = <&msm_gpio 101 0x00>;
-                i2c-gpio,delay-us = <1>;
-                #address-cells = <1>;
-                #size-cells = <0>;
-
-                tc360@20 {
-                        compatible = "coreriver,coreriver-tkey";
-                        reg = <0x20>;
-			interrupt-parent = <&msm_gpio>;
-                        interrupts = <98 0>;
-                        pinctrl-names = "tkey_gpio_active","tkey_gpio_suspend";
-                        pinctrl-0 = <&tkey_i2c_active &tkey_irq_active>;
-                        pinctrl-1 = <&tkey_i2c_suspend>;
-                        coreriver,vcc_en-gpio = <&msm_gpio 120 0x00>;
-                        coreriver,scl-gpio = <&msm_gpio 102 0x00>;
-                        coreriver,sda-gpio = <&msm_gpio 101 0x00>;
-                        coreriver,irq-gpio = <&msm_gpio  98 0x00>;
-                        coreriver,tkey-keycodes = <254 158>;
-                        coreriver,i2c-pull-up = <1>;
-                        coreriver,gpio_seperated = <1>;
-                        coreriver,firm-up;
-                };
-        };
 
 	i2c_4: i2c@78b8000 { /* BLSP1 QUP4 */
 		status="disable";
@@ -388,7 +359,7 @@
 			pn547,vio-gpio = <&msm_gpio 90 0x01>;
 			nfc_ldo-supply = <&pm8916_l14>;
 			qcom,clk-src = "BBCLK2";
-			clocks = <&clock_rpm clk_bb_clk2>;
+			clocks = <&clock_rpm clk_bb_clk2_pin>;
 			clock-names = "nfc_clock";
 		};
 	};
@@ -424,14 +395,7 @@
 	but_zones: but_zones {
 		#list-but-cells = <3>;
 	};
-	leds_ktd2692 {
-		compatible = "ktd2692";
-		flash-en-gpio= <&msm_gpio 50 0x0>;
-		status = "okay";
-		pinctrl-names ="front_fled_default","front_fled_sleep";
-		pinctrl-0 = <&front_flash_active>;
-		pinctrl-1 = <&front_flash_sleep>;
-	};
+
 	earjack {
 		compatible = "sec_jack";
 		qcom,earjack-detect-gpio = <&msm_gpio 110 0x0>;
@@ -455,19 +419,7 @@
 
 &usb_otg {
 	qcom,hsusb-otg-phy-init-seq =
-					<0x44 0x80 0x3B 0x81 0x24 0x82 0x13 0x83 0xffffffff>;
-};
-
-&rpm_bus {
-	rpm-regulator-ldoa17 {
-		status = "okay";
-		pm8916_l17: regulator-l17 {
-			regulator-min-microvolt = <3000000>;
-			regulator-max-microvolt = <3000000>;
-			qcom,init-voltage = <3000000>;
-			status = "okay";
-		};
-	};
+					<0x19 0x81 0x0b 0x82 0xffffffff>;
 };
 
 &sdhc_1 {
@@ -598,15 +550,24 @@
                  qcom,pins = <&gp 16>, <&gp 25>;
 };
 
+&pmx_bl_ctrl {
+                 qcom,num-grp-pins = <3>;
+                 qcom,pins = <&gp 98>, <&gp 97>, <&gp 120>;
+};
+
+&pmx_i2c_lm3632 {
+	qcom,num-grp-pins = <2>;
+	qcom,pins = <&gp 102>, <&gp 101>;
+};
+
 &mdss_dsi0 {
 	pinctrl-names = "mdss_default", "mdss_sleep";
-	pinctrl-0 = <&mdss_dsi_active &lcd_esd_det_active>;
-	pinctrl-1 = <&mdss_dsi_suspend &lcd_esd_det_suspend>;
+	pinctrl-0 = <&mdss_dsi_active &lcd_esd_det_active &pmx_bl_ctrl_active >;
+	pinctrl-1 = <&mdss_dsi_suspend &lcd_esd_det_suspend &pmx_bl_ctrl_suspend >;
 	qcom,esd_irq_gpio = <&msm_gpio 69 0>;
 	qcom,platform-reset-gpio = <&msm_gpio 25 0>;
 	gdsc-supply = <&gdsc_mdss>;
 	vdda-supply = <&pm8916_l2>;
-	vdd-supply = <&pm8916_l17>;
 	vddio-supply = <&pm8916_l6>;
 
 	qcom,core-supply-entries {
@@ -643,15 +604,6 @@
 
 		qcom,panel-supply-entry@0 {
 			reg = <0>;
-			qcom,supply-name = "vdd";
-			qcom,supply-min-voltage = <3000000>;
-			qcom,supply-max-voltage = <3000000>;
-			qcom,supply-enable-load = <100000>;
-			qcom,supply-disable-load = <100>;
-		};
-
-		qcom,panel-supply-entry@1 {
-			reg = <1>;
 			qcom,supply-name = "vddio";
 			qcom,supply-min-voltage = <1800000>;
 			qcom,supply-max-voltage = <1800000>;
@@ -660,7 +612,63 @@
 		};
 	};
 };
+&soc {
+	i2c_24: i2c@24 {
 
+		cell-index = <24>;
+		compatible = "i2c-gpio";
+		i2c-gpio-scl = <&msm_gpio 102  0x00>; /*scl gpio*/
+		i2c-gpio-sda = <&msm_gpio 101 0x00>;  /*sda gpio*/
+		i2c-gpio,delay-us = <4>;
+		lm3632@11 {
+			compatible = "ti,lm3632";
+			reg = <0x11>;
+			backlight{
+				compatible = "ti,lm3632-backlight";
+				backlight-ic-name = "TI-LM3632";
+				backlight-en-gpio = <&msm_gpio 98 0x00>;
+				backlight-panel-enp-gpio = <&msm_gpio 97 0x00>;
+				backlight-panel-enn-gpio = <&msm_gpio 120 0x00>;
+				backlight-ic-tuning = [
+					09	41
+					02	50
+					03	0D
+					04	05
+					0A	19
+					05	CC
+					0D	1E
+					0E	1E
+					0F	1E
+					0C	1F
+				];
+				backlight-ic-tuning-outdoor = [
+					09	01
+					04	07
+					05	D6
+				];
+				backlight-ic-tuning-normal = [
+					04	05
+					05	CC
+					09	41
+				];
+				backlight-i2c-bl-control = [
+					04      00
+					05      00
+				];
+			};
+
+			flash{
+				compatible = "ti,lm3632-flash";
+				fflash-name = "TI-LM3632";
+				flash-en-gpio = <&msm_gpio 50 0x00>;
+				flash-int-gpio = <&msm_gpio 60 0x00>;
+				pinctrl-names = "front_fled_default","front_fled_sleep";
+				pinctrl-0 = <&front_flash_active>;
+				pinctrl-1 = <&front_flash_sleep>;
+			};
+		};
+	};
+};
 &qcom_tzlog {
 	status = "okay";
 };
