@@ -16,7 +16,6 @@
 #include "msm8916-camera.dtsi"
 #include "msm8916-camera-sensor-cdp-j5-r00.dtsi"
 #include "msm8916-sec-j5-battery-r00.dtsi"
-#include "msm8916-sec-j5lte-ltn-dtvdev-r00.dtsi"
 #include "../../../../../../drivers/video/msm/mdss/samsung/S6D7AA0X62_BV050HDM/dsi_panel_S6D7AA0X62_BV050HDM_hd_5_0_video.dtsi"
 #include "../../../../../../drivers/video/msm/mdss/samsung/S6E8AA5X01_AMS497HY01/dsi_panel_S6E8AA5X01_AMS497HY01_hd_octa_video.dtsi"
 / {
@@ -70,7 +69,6 @@
 			imagis,ic-version = "ist3038c";
 			imagis,project-name = "j5_octa";
 			imagis,tkey = <1>;
-			imagis,octa-hw = <1>;
 		};
 	};
 
@@ -97,7 +95,6 @@
                         coreriver,irq-gpio = <&msm_gpio  98 0x00>;
                         coreriver,tkey-keycodes = <254 158>;
                         coreriver,i2c-pull-up = <1>;
-			coreriver,fw-name = "tc360_j5";
                         coreriver,gpio_seperated = <1>;
                         coreriver,firm-up;
                 };
@@ -390,7 +387,7 @@
 			pn547,vio-gpio = <&msm_gpio 90 0x01>;
 			nfc_ldo-supply = <&pm8916_l14>;
 			qcom,clk-src = "BBCLK2";
-			clocks = <&clock_rpm clk_bb_clk2_pin>;
+			clocks = <&clock_rpm clk_bb_clk2>;
 			clock-names = "nfc_clock";
 		};
 	};
