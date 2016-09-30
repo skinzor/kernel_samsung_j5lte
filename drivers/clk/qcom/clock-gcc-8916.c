@@ -557,9 +557,6 @@ static struct clk_freq_tbl ftbl_gcc_camss_vfe0_clk[] = {
 	F( 266670000,	   gpll0,   3,	  0,	0),
 	F( 320000000,	   gpll0, 2.5,	  0,	0),
 	F( 400000000,	   gpll0,   2,	  0,	0),
-	F( 475000000,      gpll2,   2,	  0,	0),
-	F( 550000000,      gpll2,   2,	  0,	0),
-	F( 650000000,      gpll2,   2,	  0,	0),
 	F( 720000000,      gpll2,   2,    0,    0),
 	F_END
 };
