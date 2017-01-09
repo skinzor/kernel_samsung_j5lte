@@ -348,7 +348,8 @@ void cpufreq_notify_utilization(struct cpufreq_policy *policy,
  unsigned int util)
 {
  if (policy)
- policy->util
+ policy->util = util;
+}
 
 /*********************************************************************
  *                          SYSFS INTERFACE                          *
