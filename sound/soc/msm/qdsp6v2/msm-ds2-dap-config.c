@@ -1495,7 +1495,7 @@ static int msm_ds2_dap_set_param(u32 cmd, void *arg)
 			}
 			ds2_dap_params[cdev].params_val[off + j] = data;
 				pr_debug("%s:off %d,val[i/p:o/p]-[%d / %d]\n",
-					 ____func__, off, data,
+					 __func__, off, data,
 					 ds2_dap_params[cdev].
 					 params_val[off + j]);
 		}
