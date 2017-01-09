@@ -1396,7 +1396,7 @@ static int msm_ds2_dap_handle_commands(u32 cmd, void *arg)
 	break;
 
 	case DAP_CMD_SET_BYPASS_TYPE:
-		if (dolby_data->data[0] == true)
+		if (data == true)
 			ds2_dap_params_states.dap_bypass_type =
 				DAP_HARD_BYPASS;
 		else
