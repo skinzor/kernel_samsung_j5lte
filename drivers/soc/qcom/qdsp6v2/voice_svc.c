@@ -1,4 +1,4 @@
-/* Copyright (c) 2014, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -104,6 +104,13 @@ static int32_t qdsp_apr_callback(struct apr_client_data *data, void *priv)
 			pr_debug("%s: Received Modem reset event\n", __func__);
 		}
 	}
+		/* Set the remaining member variables to default values
+			for RESET_EVENTS */
+		data->payload_size = 0;
+		data->payload = NULL;
+		data->src_port = 0;
+		data->dest_port = 0;
+		data->token = 0;
 
 	spin_lock_irqsave(&prtd->response_lock, spin_flags);
 
